@@ -1,0 +1,5 @@
+type Document {
+    id: String!
+    type: String!
+    name: String!
+}

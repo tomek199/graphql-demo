@@ -40,6 +40,14 @@ class DocumentsServiceApplication {
                 ServerResponse.ok().bodyValue(it)
             } ?: ServerResponse.notFound().build()
         }
+
+        GET("/users/{id}/documents") { request ->
+            val id = request.pathVariable("id")
+            log.info("Getting documents list for user $id")
+            documents.filter { document -> document.userId == id } .let {
+                ServerResponse.ok().bodyValue(it)
+            }
+        }
     }
 }
 

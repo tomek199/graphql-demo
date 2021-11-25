@@ -30,6 +30,7 @@
         <module>documents-service</module>
         <module>contents-service</module>
         <module>users-service</module>
+        <module>api-service</module>
     </modules>
 
     <properties>
