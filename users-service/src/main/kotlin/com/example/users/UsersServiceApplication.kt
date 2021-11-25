@@ -12,11 +12,11 @@ import org.springframework.web.reactive.function.server.router
 class UsersServiceApplication {
     private val log: Logger = LoggerFactory.getLogger(UsersServiceApplication::class.java)
     private val users: List<User> = listOf(
-        User(1, "Optimus Prime", "optimus@mail.com", "Transformers"),
-        User(2, "Han Solo", "solo@mail.com", "Star Wars"),
-        User(3, "Yoda", "yoda@mail.com", "Star Wars"),
-        User(4, "Bumblebee", "bumblebee@mail.com", "Transformers"),
-        User(5, "Luke Skywalker", "luke@mail.com", "Star Wars")
+        User("usr-1", "Optimus Prime", "optimus@mail.com", "Transformers"),
+        User("usr-2", "Han Solo", "solo@mail.com", "Star Wars"),
+        User("usr-3", "Yoda", "yoda@mail.com", "Star Wars"),
+        User("usr-4", "Bumblebee", "bumblebee@mail.com", "Transformers"),
+        User("usr-5", "Luke Skywalker", "luke@mail.com", "Star Wars")
     )
 
     @Bean
@@ -29,7 +29,7 @@ class UsersServiceApplication {
         GET("/users/{id}") { request ->
             val id = request.pathVariable("id")
             log.info("Getting user $id")
-            users.find { user -> user.id == id.toInt() }?.let {
+            users.find { user -> user.id == id }?.let {
                 ServerResponse.ok().bodyValue(it)
             } ?: ServerResponse.notFound().build()
         }
@@ -37,7 +37,7 @@ class UsersServiceApplication {
 }
 
 data class User(
-    val id: Int,
+    val id: String,
     val name: String,
     val email: String,
     val company: String

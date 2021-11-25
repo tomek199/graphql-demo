@@ -12,9 +12,18 @@ import org.springframework.web.reactive.function.server.router
 class DocumentsServiceApplication {
     private val log: Logger = LoggerFactory.getLogger(DocumentsServiceApplication::class.java)
     private val documents: List<Document> = listOf(
-        Document(1, "xml", "invoice-1", 1),
-        Document(2, "xml", "invoice-2", 2),
-        Document(3, "txt", "attachment-1", 3)
+        Document("doc-1", "xml", "invoice-1", "con-1", "usr-3"),
+        Document("doc-2", "xml", "invoice-2", "con-2", "usr-2"),
+        Document("doc-3", "xml", "invoice-3", "con-3", "usr-4"),
+        Document("doc-4", "xml", "invoice-4", "con-4", "usr-4"),
+        Document("doc-5", "xml", "invoice-5", "con-5", "usr-3"),
+        Document("doc-6", "xml", "invoice-6", "con-6", "usr-2"),
+        Document("doc-7", "txt", "attachment-7", "con-7", "usr-4"),
+        Document("doc-8", "txt", "attachment-8", "con-8", "usr-2"),
+        Document("doc-9", "txt", "attachment-9", "con-9", "usr-3"),
+        Document("doc-10", "txt", "attachment-10", "con-10", "usr-1"),
+        Document("doc-11", "txt", "attachment-11", "con-11", "usr-2"),
+        Document("doc-12", "txt", "attachment-12", "con-12", "usr-1"),
     )
 
     @Bean
@@ -27,7 +36,7 @@ class DocumentsServiceApplication {
         GET("/documents/{id}") { request ->
             val id = request.pathVariable("id")
             log.info("Getting document $id")
-            documents.find { document -> document.id == id.toInt() } ?.let {
+            documents.find { document -> document.id == id } ?.let {
                 ServerResponse.ok().bodyValue(it)
             } ?: ServerResponse.notFound().build()
         }
@@ -35,10 +44,11 @@ class DocumentsServiceApplication {
 }
 
 data class Document(
-    val id: Int,
+    val id: String,
     val type: String,
     val name: String,
-    val contentId: Int,
+    val contentId: String,
+    val userId: String,
 )
 
 fun main(args: Array<String>) {

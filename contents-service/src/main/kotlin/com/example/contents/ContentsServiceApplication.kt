@@ -12,9 +12,18 @@ import org.springframework.web.reactive.function.server.router
 class ContentsServiceApplication {
     private val log: Logger = LoggerFactory.getLogger(ContentsServiceApplication::class.java)
     private val contents: List<Content> = listOf(
-        Content(1, "<element>I'm xml</element>", 26),
-        Content(2, "<element>I'm also xml</element>", 31),
-        Content(3, "I am static text", 16)
+        Content("con-1", "<element>I'm xml</element>", 26),
+        Content("con-2", "<element>I'm xml</element>", 26),
+        Content("con-3", "<element>I'm xml</element>", 26),
+        Content("con-4", "<element>I'm also xml</element>", 31),
+        Content("con-5", "<element>I'm also xml</element>", 31),
+        Content("con-6", "<element>I'm also xml</element>", 31),
+        Content("con-7", "<element>I'm also xml</element>", 31),
+        Content("con-8", "I am static text", 16),
+        Content("con-9", "I am static text", 16),
+        Content("con-10", "I am static text", 16),
+        Content("con-11", "I am static text", 16),
+        Content("con-12", "I am static text", 16)
     )
 
     @Bean
@@ -27,7 +36,7 @@ class ContentsServiceApplication {
         GET("/contents/{id}") { request ->
             val id = request.pathVariable("id")
             log.info("Getting content $id")
-            contents.find { content -> content.id == id.toInt() } ?.let {
+            contents.find { content -> content.id == id } ?.let {
                 ServerResponse.ok().bodyValue(it)
             } ?: ServerResponse.notFound().build()
         }
@@ -35,7 +44,7 @@ class ContentsServiceApplication {
 }
 
 data class Content(
-    val id: Int,
+    val id: String,
     val body: String,
     val size: Int
 )
