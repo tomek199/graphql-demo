@@ -29,6 +29,7 @@
     <modules>
         <module>documents-service</module>
         <module>contents-service</module>
+        <module>users-service</module>
     </modules>
 
     <properties>
